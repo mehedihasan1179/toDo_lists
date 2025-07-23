@@ -1,150 +1,225 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap');
-
-*{
+/* Basic Reset & Body Styling */
+body {
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-      font-family: "Dosis", sans-serif;
-}
-
-body{
-    background-color: #bde0fe;
-}
-
-.container{
-    position: relative;
-    width: 100%;
-    max-width: 480px;
-    border-radius: 8px;
-    padding: 25px;
-    margin: 85px auto 0;
-    background: #fff;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-
-}
-
-.input-field{
-    position: relative;
-    height: 64px;
-    width: 100%;
-}
-
-.input-field textarea{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    font-size: 18px;
-    font-weight: 400;
-    border-radius: 8px;
-    padding: 18px 45px 18px 15px;
-    border: 1px solid #ebebeb;
-    resize: none;
-}
-
-textarea::-webkit-scrollbar{
-    display: none;
-}
-
-.input-field .note-icon{
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 24px;
-    color: #757575;
-}
-
-.input-field textarea:focus ~ .note-icon{
-    color: #147df5;
-   
-}
-
-.input-field textarea:focus{
-    border-color: #147df5;
-}
-
-.container .todoLists {
-    max-height: 380px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-.todoLists .list{
+    padding: 20px;
+    background-color: #f4f7f6; /* Light background */
     display: flex;
-    align-items: center;
-    list-style: none;
-    background: #ececec;
-    padding: 20px 15px;
-    border-radius: 8px;
-    position: relative;
-    margin-top: 10px;
-    cursor: pointer;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh;
+    color: #333;
 }
 
-.todoLists .list input{
-    height: 16px;
-    min-width: 16px;
-    accent-color: #147df5;
-    pointer-events: none;
+/* Container for the To-Do App */
+.todo-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box; /* Include padding in width */
+    margin-top: 50px; /* Space from top */
 }
 
-.todoLists .list .task{
-    margin: 0 30px 0 15px;
-    word-break: break-all;
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 2.2em;
+    font-weight: 700;
 }
 
-.list input:checked ~ .task{
-    text-decoration: line-through;
-}
-
-.todoLists .list i{
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translateY(-50%);
-    font-size: 20px;
-    color: #757575;
-    padding: 5px;
-    opacity: 0.6;
-    display: none;
-}
-
-.todoLists .list:hover i{
-    display: inline-block;
-}
-
-.todoLists .list i:hover{
-    opacity: 1;
-    transition: all 0.5s ease-in-out;
-}
-
-.container .pending-tasks{
+/* Input and Button Styling */
+.input-section {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 25px;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
-.pending-tasks span{
-    color: #3d3d3d;
-}
-
-.pending-tasks .clear-btn{
-    padding: 6px 12px; 
+#taskInput {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
     outline: none;
+    transition: border-color 0.2s ease;
+    min-width: 150px; /* Ensure input doesn't get too small */
+}
+
+#taskInput:focus {
+    border-color: #007bff;
+}
+
+.action-button { /* Common style for both buttons */
+    padding: 12px 20px;
+    background-color: #007bff; /* Blue */
+    color: white;
     border: none;
-    background: #147df5;
-    color: #fff;
-    font-size: 14px;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    pointer-events: none;
-    white-space: nowrap;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
 }
 
-.pending-tasks .clear-btn:hover{
-    background-color: #0b6bd8;
+.action-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.action-button:active {
+    transform: translateY(0);
+}
+
+/* Specific button styling for suggest/next */
+#generateTaskBtn, #nextTaskBtn {
+    background-color: #28a745; /* Green for suggestions */
+}
+#generateTaskBtn:hover, #nextTaskBtn:hover {
+    background-color: #218838;
+}
+#generateTaskBtn:disabled, #nextTaskBtn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Genre Selection Styling */
+.genre-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    flex-wrap: wrap;
+}
+
+.genre-selection label {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    color: #555;
+    cursor: pointer;
+}
+
+.genre-selection input[type="radio"] {
+    margin-right: 8px;
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+
+/* Task List Styling */
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#taskList li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    transition: background-color 0.2s ease;
+}
+
+#taskList li:last-child {
+    margin-bottom: 0;
+}
+
+#taskList li .task-text {
+    flex-grow: 1;
+    font-size: 1.1em;
+    color: #444;
+    cursor: pointer; /* Indicates it's clickable to mark done */
+    word-break: break-word; /* Prevents long words from overflowing */
+    margin-right: 10px;
+}
+
+/* Completed Task Styling */
+#taskList li.completed {
+    background-color: #e6ffe6; /* Light green for completed */
+    border-color: #c6f6c6;
+}
+
+#taskList li.completed .task-text {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* Action Buttons (Delete) */
+#taskList li .delete-btn {
+    background-color: #dc3545; /* Red */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#taskList li .delete-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+#taskList li .delete-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .todo-container {
+        padding: 20px;
+        margin-top: 20px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    .input-section {
+        flex-direction: column; /* Stack input and buttons vertically */
+        gap: 15px;
+    }
+    #taskInput, .action-button {
+        width: 100%; /* Full width for input and buttons */
+        box-sizing: border-box;
+    }
+    #addTaskBtn, #generateTaskBtn, #nextTaskBtn { /* Apply to all buttons */
+        padding: 12px 20px; /* Maintain button padding */
+    }
+    #taskInput {
+        padding: 10px 12px;
+    }
+    #taskList li {
+        padding: 10px 12px;
+    }
+    #taskList li .task-text {
+        font-size: 1em;
+    }
+    #taskList li .delete-btn {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .genre-selection {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .genre-selection label {
+        justify-content: center;
+    }
 }
 
 
